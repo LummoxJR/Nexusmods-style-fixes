@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.5
+@version        1.0.5.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.css
@@ -182,7 +182,7 @@
 	}
 
 	/* Restore background on author page */
-	#mainContent > div > img.inset.size-full {display: none;}
+	#mainContent > div > img.inset-0.size-full {display: none;}
 
 	/* Game overview page */
 
