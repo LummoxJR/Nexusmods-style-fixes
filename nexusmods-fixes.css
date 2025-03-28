@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.4
+@version        1.0.5
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.css
@@ -156,10 +156,33 @@
 
 	/* Give back the nice background image */
 	body::before {
-		background-image: url('/assets/images/default/bg_game_index.jpg');
+		content: " ";
+		position: fixed;
+		width: 100%;
 		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: #060702;
+		background-image: url('//www.nexusmods.com/assets/images/default/bg_game_index.jpg');
+		background-position: center top;
+		background-size: cover;
+		background-repeat: no-repeat;
+		will-change:transform;
+		z-index: -1;
 		filter: none;
 	}
+
+	/* Restore background on mod list page */
+	body {background: transparent;}
+	#mainContent > div > div.bg-gradient-to-b {
+		background: transparent;
+	}
+	#mainContent img.w-screen.min-h-screen {
+		display: none;
+	}
+
+	/* Restore background on author page */
+	#mainContent > div > img.inset.size-full {display: none;}
 
 	/* Game overview page */
 
@@ -201,7 +224,7 @@
 		.typography-heading-sm {font-size: 1.2rem;}
 	}
 	
-	
+
 	/* Theme colors Nexus wanted to remove for some reason */
 	body.scheme-theme-ReskinBlue {
 		--theme-primary: #57a5cc !important;
