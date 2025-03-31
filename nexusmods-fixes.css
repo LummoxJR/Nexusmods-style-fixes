@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.5.1
+@version        1.0.6
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.css
@@ -132,7 +132,7 @@
 		space. Until these are moved, hide them. (Yes, it does mean you need to turn off the styles
 		to report a mod or use the share button. Keep pestering Nexus, politely, to move them.)
 	 */
-	.tabcontent .report-abuse-btn, .tabcontent .button-share {display: none !important;}
+	.tab-description .report-abuse-btn, .tab-description .button-share {display: none !important;}
 	
 	/* Why is there a margin here? Why? */
 	.tab-description .accordionitems {margin-bottom: 0;}
@@ -358,4 +358,7 @@
 		--theme-secondary: #cc0019 !important;
 		--theme-dark: #cc0019 !important
 	}
+
+	/* Restore correct hover button color */
+	.drop-down:hover > #button-manage {background-color: var(--theme-secondary);}
 }
