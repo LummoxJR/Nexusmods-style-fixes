@@ -6,7 +6,7 @@ During the beta I mainly worked with mod pages and the main mod listing page (fo
 
 ## Installation
 
-To use these styles, you will need the Stylus extension for Firefox or for Chromium browsers. Create a new style on nexusmods.com, and paste the contents of nexusmods-fixes.css into that.
+To use these styles, you will need the Stylus extension for Firefox or for Chromium browsers. Once installed, [open this link](https://github.com/LummoxJR/Nexusmods-style-fixes/raw/refs/heads/main/nexusmods-fixes.user.css)
 
 ## Reclaiming vertical space
 

@@ -1,0 +1,364 @@
+/* ==UserStyle==
+@name           nexusmods.com
+@namespace      github.com/openstyles/stylus
+@version        1.0.6
+@description    Fixes bad style choices from the Nexusmods 2025 update
+@author         Lummox JR
+@updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
+==/UserStyle== */
+
+@-moz-document domain("next.nexusmods.com"), domain("www.nexusmods.com") {
+	/* Import fonts (use one of these for the mod header) */
+	@import url('https://fonts.googleapis.com/css2?family=Cabin+Condensed:wght@400;500;600;700&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+	/* Awful big game-name header below breadcrumbs */
+	#mainContent nav:first-child + div {
+		display: none;
+	}
+
+	/* Get rid of egregious vertical padding */
+	/*
+		RANT
+
+		CSS designers, name your classes according to their function, not the attributes you mean
+		to apply. Classes should be things like mod-tile-title, mod-tile-footer,
+		fileinfo-antivirus-status, etc.
+
+		I know we're all guilty of this to some degree and I've done MUCH WORSE but please, these
+		classes are bad.
+	 */
+	.pt-4, .pt-6, .py-4, .py-6 {padding-top: 0.5rem;}
+	.pb-4, .pb-6, .py-4, .py-6 {padding-bottom: 0.5rem;}
+	.mt-4, .mt-6, .my-4, .my-6 {margin-top: 0.5rem;}
+	.mb-4, .mb-6, .my-4, .my-6 {margin-bottom: 0.5rem;}
+
+	.pt-8, .py-8 {padding-top: 1rem;}
+	.pb-8, .py-8 {padding-bottom: 1rem;}
+	.pt-10, .py-10 {padding-top: 1.5rem;}
+	.pb-10, .py-10 {padding-bottom: 1.5rem;}
+	.mt-8, .my-8 {margin-top: 1rem;}
+	.mb-8, .my-8 {margin-bottom: 1rem;}
+	.mt-10, .my-10 {margin-top: 1.5rem;}
+	.mb-10, .my-10 {margin-bottom: 1.5rem;}
+
+	/* Holy frell, dudes, WHY? */
+	.pt-20, .py-20 {padding-top: 1.5rem;}
+	.pb-20, .pb-20 {padding-bottom: 1.5rem;}
+
+	/* Get rid of egregious spacers */
+	.space-y-6 > :not([hidden]) ~ :not([hidden]) {margin-top: 0.5rem; margin-bottom: 0.5rem;}
+	.space-y-5 > :not([hidden]) ~ :not([hidden]) {margin-top: 0.5rem; margin-bottom: 0.5rem;}
+
+	.space-y-5 > :last-child, .space-y-6 > :last-child {margin-bottom: 0;}
+
+	/* Mod list has a ton of wasted vertical space */
+	.group\/mod-tile {
+		/* Don't enforce tile min-height */
+		&.min-h-\[28rem\] {min-height: unset;}
+
+		/* Radically reduce egregious padding */
+		& > :nth-child(2) {padding-top: 0.2rem; padding-bottom: 0.2rem;}
+		.py-2 {padding-top: 0.2rem; padding-bottom: 0.2rem;}
+
+		/* Mod title font was too big */
+		.typography-body-xl {font-size: 1rem;}
+
+		/* Smaller text for author/category/times */
+		.typography-body-sm {font-size: 0.7rem;}
+
+		/* 5 lines of description, not 4 */
+		.line-clamp-4 {-webkit-line-clamp: 5;}
+
+		/* 1.5 line-height wasted space */
+		.typography-body-md {line-height: 1.35;}
+		
+		/* Bottom box with endorsements/downloads/size */
+		.min-h-8 {min-height: 1.5rem;}
+	}
+	
+	.mods-grid, .profile-mods-grid {
+		row-gap: 1rem;
+	}
+
+	/* Too much space between mods-grid and pagination */
+	.xs\:mb-10 {margin-bottom: 1.5rem;}
+
+	/* Remove wide gutters, but make allowances for very wide screens */
+	.next-container {width: min(max(90%, 2000px), 100%);}
+	
+	/* Title on mod page */
+	#featured h1 {
+		/* Use a nice condensed font */
+		font-family: 'Saira Condensed','Cabin Condensed',sans-serif;
+		margin-bottom: 0.5rem;
+	}
+	
+	/* Gradient on mod page covers too much of the header image */
+	#featured #feature .gradient {height: 200px;}
+	/* Too much padding at bottom of header */
+	#featured #pagetitle {padding-bottom: 0.5rem;}
+
+	/* Description tab of mod page has way too much padding */
+	.tab-description {padding-top: 1rem; padding-bottom: 1rem;}
+	.tab-description ~ .mod_description_container {padding-top: 0;}
+
+	/* "About this mod" text is useless and wastes space */
+	#description_tab_h2 {display: none;}
+
+	/* Mod image gallery doesn't need the counter unless we hover */
+	#sidebargallery.modimages .counter {transition: opacity 0.33s;}
+	#sidebargallery.modimages:not(:hover) .counter {opacity: 0;}
+
+	/* Too much vertical padding around thumbnail gallery */
+	#sidebargallery ul.thumbgallery {padding-top: 0.5rem; padding-bottom: 0.5rem;}
+
+	/* File info area has too much vertical padding; SHOULD BE ZERO! */
+	/* Only do this after thumbnail gallery because this is also used for article info that does need padding */
+	.modpage .info-details .sidebargallery + #fileinfo {padding-top: 0; padding-bottom: 0;}
+
+	/* Antivirus status has bogus inline styles that add vertical size */
+	.modpage #fileinfo .sideitem:last-child > div {height: auto !important; top: unset !important;}
+	
+	/* Too much padding for tags and we don't need a header */
+	.modpage .sideitems.side-tags {padding-top: 0.5rem; padding-bottom: 0.5rem;}
+	.modpage .sideitems.side-tags h2 {display: none;}
+
+	/* Keep the same color as other links */
+	.modtabs .alert {color: var(--theme-primary);}
+
+	/*
+		Share and report buttons should be up in the header, not in the middle of the page wasting
+		space. Until these are moved, hide them. (Yes, it does mean you need to turn off the styles
+		to report a mod or use the share button. Keep pestering Nexus, politely, to move them.)
+	 */
+	.tab-description .report-abuse-btn, .tab-description .button-share {display: none !important;}
+	
+	/* Why is there a margin here? Why? */
+	.tab-description .accordionitems {margin-bottom: 0;}
+	
+	/* Comment count on posts tab has needless top padding */
+	#comment-count {padding-top: 0;}
+	/* Too big a margin below comment page nav */
+	.comments .comment-nav {margin-bottom: 0.5rem;}
+
+	/* Article page title area has too much bottom padding, inconsistent with mod page */
+	#featured #feature.blank #pagetitle {padding-bottom: 0.5rem;}
+
+	/* Article page background is weirdly bright compared to description */
+	.articlepage article {background-color: var(--surface-mid);}
+
+	/* Make numerical lists more like bullet lists so they indent properly */
+	ul.content_list_ordered > li {margin-left: 20px;}
+
+	/* Comments below article have extra space they don't need */
+	.container ~ #comment-container {padding-top: 0;}
+
+	/* Give back the nice background image */
+	body::before {
+		content: " ";
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: #060702;
+		background-image: url('//www.nexusmods.com/assets/images/default/bg_game_index.jpg');
+		background-position: center top;
+		background-size: cover;
+		background-repeat: no-repeat;
+		will-change:transform;
+		z-index: -1;
+		filter: none;
+	}
+
+	/* Restore background on mod list page */
+	body {background: transparent;}
+	#mainContent > div > div.bg-gradient-to-b {
+		background: transparent;
+	}
+	#mainContent img.w-screen.min-h-screen {
+		display: none;
+	}
+
+	/* Restore background on author page */
+	#mainContent > div > img.inset-0.size-full {display: none;}
+
+	/* Game overview page */
+
+	/* Trending Mods section is huge and needs tweaking */
+	section[aria-labelledby="trending-mods-header"] {
+		/* 2nd div has the content; 1st has the header */
+		& > div:nth-of-type(2) {
+			display: grid;
+			grid-template-columns: auto 30%;
+			grid-column-gap: 1.5rem;
+			/* Divider we don't need or want */
+			hr {display: none;}
+			/* Smaller section below the two big tiles */
+			& > div:nth-of-type(2) {
+				margin: 0;
+				grid-template-columns: repeat(2, minmax(0,1fr));
+				grid-auto-rows: minmax(min-content, 1fr);
+				grid-column-gap: 1.5rem;
+				grid-row-gap: 1rem;
+			}
+		}
+	}
+
+	/* LOL bye */
+	section[aria-labelledby="popular-collections-header"] {
+		display: none;
+	}
+
+	section[aria-labelledby="more-mods-header"] {
+		/* Move the time button in More Mods next to the other buttons */
+		div.flex.sm\:flex-row {
+			div:first-child {width: auto;}
+			button:nth-child(2) {margin-left: unset;}
+		}
+	}
+
+	.news-grid {
+		/* What's up with those huge titles? */
+		.typography-heading-sm {font-size: 1.2rem;}
+	}
+	
+
+	/* Theme colors Nexus wanted to remove for some reason */
+	body.scheme-theme-ReskinBlue {
+		--theme-primary: #57a5cc !important;
+		--theme-primary-translucent: #57a5ccd8 !important;
+		--theme-secondary: #4584a3 !important;
+		--theme-dark: #356983 !important
+	}
+	body.scheme-theme-Fallout {
+		--theme-primary: #92ab20 !important;
+		--theme-primary-translucent: #92ab20d8 !important;
+		--theme-secondary: #a4c21e !important;
+		--theme-dark: #545e24 !important
+	}
+	body.scheme-theme-Purple {
+		--theme-primary: #9561de !important;
+		--theme-primary-translucent: #9561ded8 !important;
+		--theme-secondary: #a275d3 !important;
+		--theme-dark: #4700aa !important
+	}
+	body.scheme-theme-LighterBlue {
+		--theme-primary: #679fd6 !important;
+		--theme-primary-translucent: #679fd6d8 !important;
+		--theme-secondary: #7ab1e8 !important;
+		--theme-dark: #4475a6 !important
+	}
+	body.scheme-theme-BatmanBlue {
+		--theme-primary: #7495b0 !important;
+		--theme-primary-translucent: #7495b0d8 !important;
+		--theme-secondary: #86aece !important;
+		--theme-dark: #296291 !important
+	}
+	body.scheme-theme-Burgundy {
+		--theme-primary: #bf4848 !important;
+		--theme-primary-translucent: #bf4848d8 !important;
+		--theme-secondary: #e27171;
+		--theme-dark: #9d3939
+	}
+	body.scheme-theme-Teal {
+		--theme-primary: #598a9f !important;
+		--theme-primary-translucent: #598a9fd8 !important;
+		--theme-secondary: #76a3b7 !important;
+		--theme-dark: #184a60 !important
+	}
+	body.scheme-theme-Sepia {
+		--theme-primary: #a5704f !important;
+		--theme-primary-translucent: #a5704fd8 !important;
+		--theme-secondary: #9a7d6b !important;
+		--theme-dark: #604331 !important
+	}
+	body.scheme-theme-Gold {
+		--theme-primary: #b99d3e !important;
+		--theme-primary-translucent: #b99d3ed8 !important;
+		--theme-secondary: #dfba3b !important;
+		--theme-dark: #c77f18 !important
+	}
+	body.scheme-theme-PaleBrown {
+		--theme-primary: #8e7f5f !important;
+		--theme-primary-translucent: #8e7f5fd8 !important;
+		--theme-secondary: #a68f5e !important;
+		--theme-dark: #584a2d !important
+	}
+	body.scheme-theme-DeepOrange {
+		--theme-primary: #e6832b !important;
+		--theme-primary-translucent: #e6832bd8 !important;
+		--theme-secondary: #faa431 !important;
+		--theme-dark: #a7540a !important
+	}
+	body.scheme-theme-DarkYellow {
+		--theme-primary: #b7b60f !important;
+		--theme-primary-translucent: #b7b60fd8 !important;
+		--theme-secondary: #e7d528 !important;
+		--theme-dark: #e09d05 !important
+	}
+	body.scheme-theme-DarkRose {
+		--theme-primary: #976060 !important;
+		--theme-primary-translucent: #976060d8 !important;
+		--theme-secondary: #bf8282 !important;
+		--theme-dark: #6a1f1f !important
+	}
+	body.scheme-theme-VioletBlue {
+		--theme-primary: #576eca !important;
+		--theme-primary-translucent: #576ecad8 !important;
+		--theme-secondary: #a4a9e1 !important;
+		--theme-dark: #4955da !important
+	}
+	body.scheme-theme-Brown {
+		--theme-primary: #502c15 !important;
+		--theme-primary-translucent: #502c15d8 !important;
+		--theme-secondary: #996240 !important;
+		--theme-dark: #3a1b07 !important
+	}
+	body.scheme-theme-Sienna {
+		--theme-primary: #8f482c !important;
+		--theme-primary-translucent: #8f482cd8 !important;
+		--theme-secondary: #bc6d4e !important;
+		--theme-dark: #531f0b !important
+	}
+	body.scheme-theme-TankGrey {
+		--theme-primary: #a7a785 !important;
+		--theme-primary-translucent: #a7a785d8 !important;
+		--theme-secondary: #969673 !important;
+		--theme-dark: #41412c !important
+	}
+	body.scheme-theme-MossGreen {
+		--theme-primary: #9d9d5a !important;
+		--theme-primary-translucent: #9d9d5ad8 !important;
+		--theme-secondary: #c6c665 !important;
+		--theme-dark: #426535 !important
+	}
+	body.scheme-theme-DeepBlue {	/* Skyrim SE */
+		--theme-primary: #8197ec !important;
+		--theme-primary-translucent: #8197ecd8 !important;
+		--theme-secondary: #a4b7ff !important;
+		--theme-dark: #0e37da !important
+	}
+	body.scheme-theme-MediumBrown {
+		--theme-primary: #b36f3a !important;
+		--theme-primary-translucent: #b36f3ad8 !important;
+		--theme-secondary: #7f613a !important;
+		--theme-dark: #502706 !important
+	}
+	body.scheme-theme-Salmon {
+		--theme-primary: #fc4f49 !important;
+		--theme-primary-translucent: #fc4f49d8 !important;
+		--theme-secondary: #ff5f54 !important;
+		--theme-dark: #ee0013 !important
+	}
+	body.scheme-theme-RDR2Red {
+		--theme-primary: #dc1a0e !important;
+		--theme-primary-translucent: #dc1a0ed8 !important;
+		--theme-secondary: #cc0019 !important;
+		--theme-dark: #cc0019 !important
+	}
+
+	/* Restore correct hover button color */
+	.drop-down:hover > #button-manage {background-color: var(--theme-secondary);}
+}
