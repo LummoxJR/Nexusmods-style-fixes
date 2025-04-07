@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.6
+@version        1.0.7
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -43,8 +43,8 @@
 	.mb-10, .my-10 {margin-bottom: 1.5rem;}
 
 	/* Holy frell, dudes, WHY? */
-	.pt-20, .py-20 {padding-top: 1.5rem;}
-	.pb-20, .pb-20 {padding-bottom: 1.5rem;}
+	.pt-14, .py-14, .pt-16, .py-16, .pt-20, .py-20, .sm\:pt-20 {padding-top: 1.5rem;}
+	.pt-14, .py-14, .pb-16, .py-16, .pb-20, .pb-20, .sm\:pb-20 {padding-bottom: 1.5rem;}
 
 	/* Get rid of egregious spacers */
 	.space-y-6 > :not([hidden]) ~ :not([hidden]) {margin-top: 0.5rem; margin-bottom: 0.5rem;}
@@ -215,15 +215,20 @@
 		/* Move the time button in More Mods next to the other buttons */
 		div.flex.sm\:flex-row {
 			div:first-child {width: auto;}
+			div:first-child::after {display: none;}	/* Meaningless gradient before time selector */
 			button:nth-child(2) {margin-left: unset;}
 		}
+	}
+
+	.media-grid {
+		row-gap: 1.5rem;	/* 2.5 was too big, but 1 is too small */
 	}
 
 	.news-grid {
 		/* What's up with those huge titles? */
 		.typography-heading-sm {font-size: 1.2rem;}
 	}
-	
+
 
 	/* Theme colors Nexus wanted to remove for some reason */
 	body.scheme-theme-ReskinBlue {
@@ -361,4 +366,49 @@
 
 	/* Restore correct hover button color */
 	.drop-down:hover > #button-manage {background-color: var(--theme-secondary);}
+}
+
+
+/* Main front page */
+@-moz-document regexp("https://(www|next)\\.nexusmods\\.com/") {
+	/*
+		The big image of multiple games was meant to have a gradient covering part of it, so let's
+		do that. This still doesn't look as clean as it should against the restored background,
+		but this is an attempt to reconcile having a cool-looking graphic here with restoring some
+		kind of non-blank background for the rest of the page.
+	 */
+	#mainContent .absolute.inset-0:first-child {
+		display: block;
+		img.absolute.max-w-none {
+			position: relative;
+			filter: brightness(0.4);
+			background-color: #111;
+		}
+		&::after {
+			content: " ";
+			display: block;
+			position: relative;
+			top: -2rem;
+			width: 100%;
+			height: 50rem;
+			background-image: linear-gradient(to bottom, transparent, #111 4% 50%, transparent);
+		}
+	}
+
+	/* Mods section (nth child 3); this is mostly copied from above */
+	/* Collections section is included here too for visual consistency */
+	/* Why is there no ID/class/aria to indicate the section's purpose? */
+	section:nth-child(3), section:nth-child(4) {
+		/* Move the time button in More Mods next to the other buttons */
+		div.flex.sm\:flex-row {
+			div:first-child {width: auto;}
+			div:first-child::after {display: none;}	/* Meaningless gradient before time selector */
+			div:nth-child(2) {margin-left: unset;}
+		}
+		.md\:grid-cols-4, .md\:grid-cols-6 {
+			grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+			row-gap: 1rem;
+		}
+
+	}
 }
