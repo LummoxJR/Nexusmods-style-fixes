@@ -6,7 +6,7 @@ I've made this and maintain it as a gift to the community, but if you feel like 
 
 ## Installation
 
-To use these styles, you will need the Stylus extension for Firefox or for Chromium browsers. Once installed, [open this link](https://github.com/LummoxJR/Nexusmods-style-fixes/raw/refs/heads/main/nexusmods-fixes.user.css)
+To use these styles, you will need the Stylus extension for Firefox or for Chromium browsers. Once installed, [open this link](https://github.com/LummoxJR/Nexusmods-style-fixes/raw/refs/heads/main/nexusmods-fixes.user.css).
 
 ## Overview and goals
 
