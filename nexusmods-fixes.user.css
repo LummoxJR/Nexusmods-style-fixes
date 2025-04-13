@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.7.1
+@version        1.0.8
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -211,7 +211,7 @@
 		display: none;
 	}
 
-	section[aria-labelledby="more-mods-header"] {
+	section[aria-labelledby="more-mods-header"], section[aria-labelledby="media-header"] {
 		/* Move the time button in More Mods next to the other buttons */
 		div.flex.sm\:flex-row {
 			div:first-child {width: auto;}
