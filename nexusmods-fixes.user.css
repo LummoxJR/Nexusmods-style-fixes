@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.8
+@version        1.0.9
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -59,10 +59,14 @@
 
 		/* Radically reduce egregious padding */
 		& > :nth-child(2) {padding-top: 0.2rem; padding-bottom: 0.2rem;}
-		.py-2 {padding-top: 0.2rem; padding-bottom: 0.2rem;}
+		.pt-2, .py-2 {padding-top: 0.2rem;}
+		.pb-2, .py-2 {padding-bottom: 0.2rem;}
 
 		/* Mod title font was too big */
 		.typography-body-xl {font-size: 1rem;}
+
+		/* Mod title+author section uses too much side padding */
+		.px-3 {padding-left: 0.5rem; padding-right: 0.5rem;}
 
 		/* Smaller text for author/category/times */
 		.typography-body-sm {font-size: 0.7rem;}
