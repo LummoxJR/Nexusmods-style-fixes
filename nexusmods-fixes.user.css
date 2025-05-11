@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.0.9
+@version        1.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -51,6 +51,14 @@
 	.space-y-5 > :not([hidden]) ~ :not([hidden]) {margin-top: 0.5rem; margin-bottom: 0.5rem;}
 
 	.space-y-5 > :last-child, .space-y-6 > :last-child {margin-bottom: 0;}
+
+	/* 4rem of vertical spacing? You ADDED this after all the previous feedback? */
+	.space-y-16 > :not([hidden]) ~ :not([hidden]) {margin-top: 1rem; margin-bottom: 1rem;}
+	.space-y-16 > :last-child {margin-bottom: 1rem;}
+
+
+    /* NO! WTF is this for? It appears around sections on the main page for a game and it's awful. STOP ADDDING NEEDLESS PADDING! */
+    .sm\:p-4 {padding: 0;}
 
 	/* Mod list has a ton of wasted vertical space */
 	.group\/mod-tile {
@@ -209,6 +217,9 @@
 			}
 		}
 	}
+	/* The translucent backgronud behind trending mods is awful. */
+	.sm\:bg-surface-translucent-mid {background: transparent;}
+	.sm\:border-stroke-weak {border: none;}
 
 	/* LOL bye */
 	section[aria-labelledby="popular-collections-header"] {
