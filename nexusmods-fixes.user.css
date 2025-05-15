@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.1
+@version        1.1.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -57,8 +57,8 @@
 	.space-y-16 > :last-child {margin-bottom: 1rem;}
 
 
-    /* NO! WTF is this for? It appears around sections on the main page for a game and it's awful. STOP ADDDING NEEDLESS PADDING! */
-    .sm\:p-4 {padding: 0;}
+	/* NO! WTF is this for? It appears around sections on the main page for a game and it's awful. STOP ADDDING NEEDLESS PADDING! */
+	.sm\:p-4 {padding: 0;}
 
 	/* Mod list has a ton of wasted vertical space */
 	.group\/mod-tile {
@@ -77,7 +77,12 @@
 		.px-3 {padding-left: 0.5rem; padding-right: 0.5rem;}
 
 		/* Smaller text for author/category/times */
-		.typography-body-sm {font-size: 0.7rem;}
+		.typography-body-sm:not([data-e2eid="mod-tile-summary"]) {font-size: 0.7rem;}
+		/* ...EXCEPT the mod description! What in the frell were you thinking applying .typography-body-sm here? */
+		.typography-body-sm[data-e2eid="mod-tile-summary"] {
+			font-size: 0.9rem;
+			letter-spacing: inherit;
+		}
 
 		/* 5 lines of description, not 4 */
 		.line-clamp-4 {-webkit-line-clamp: 5;}
@@ -95,6 +100,12 @@
 
 	/* Too much space between mods-grid and pagination */
 	.xs\:mb-10 {margin-bottom: 1.5rem;}
+
+	.mods-grid, .media-grid {
+		.bg-surface-translucent-low {
+			background: rgba(0,0,0,0.5);    /* better background for blank space in media thumbnails */
+		}
+	}
 
 	/* Remove wide gutters, but make allowances for very wide screens */
 	.next-container {width: min(max(90%, 2000px), 100%);}
@@ -218,7 +229,9 @@
 		}
 	}
 	/* The translucent backgronud behind trending mods is awful. */
+	.sm\:bg-surface-translucent-low {background: transparent;}
 	.sm\:bg-surface-translucent-mid {background: transparent;}
+	.sm\:backdrop-blur-md {backdrop-filter: none;}
 	.sm\:border-stroke-weak {border: none;}
 
 	/* LOL bye */
