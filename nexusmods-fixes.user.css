@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.1.1
+@version        1.1.1.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -63,7 +63,7 @@
 	/* Mod list has a ton of wasted vertical space */
 	.group\/mod-tile {
 		/* Don't enforce tile min-height */
-		&.min-h-\[28rem\] {min-height: unset;}
+		&.min-h-\[27rem\], &.min-h-\[28rem\] {min-height: unset;}
 
 		/* Radically reduce egregious padding */
 		& > :nth-child(2) {padding-top: 0.2rem; padding-bottom: 0.2rem;}
