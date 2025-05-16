@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.1.1.1
+@version        1.2
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -62,6 +62,8 @@
 
 	/* Mod list has a ton of wasted vertical space */
 	.group\/mod-tile {
+		height: 100%;
+
 		/* Don't enforce tile min-height */
 		&.min-h-\[27rem\], &.min-h-\[28rem\] {min-height: unset;}
 
@@ -77,21 +79,60 @@
 		.px-3 {padding-left: 0.5rem; padding-right: 0.5rem;}
 
 		/* Smaller text for author/category/times */
-		.typography-body-sm:not([data-e2eid="mod-tile-summary"]) {font-size: 0.7rem;}
+		.typography-body-sm:not([data-e2eid="mod-tile-summary"]):not(.line-clamp-2):not(.line-clamp-4) {font-size: 0.7rem;}
 		/* ...EXCEPT the mod description! What in the frell were you thinking applying .typography-body-sm here? */
-		.typography-body-sm[data-e2eid="mod-tile-summary"] {
+		.typography-body-sm[data-e2eid="mod-tile-summary"], .typography-body-sm.line-clamp-2, .typography-body-sm.line-clamp-4 {
 			font-size: 0.9rem;
 			letter-spacing: inherit;
 		}
 
-		/* 5 lines of description, not 4 */
+		/* 5 lines of description (standard view), not 4 */
 		.line-clamp-4 {-webkit-line-clamp: 5;}
+		/* 3 lines of description (compact view), not 2 */
+		.line-clamp-2 {-webkit-line-clamp: 3;}
 
 		/* 1.5 line-height wasted space */
 		.typography-body-md {line-height: 1.35;}
 		
 		/* Bottom box with endorsements/downloads/size */
 		.min-h-8 {min-height: 1.5rem;}
+
+		&[data-e2eid="mod-tile-compact"] {
+			display: grid;
+			grid-template-rows: auto 1fr;
+
+			& > :nth-child(2) {
+				display: grid;
+				grid-template-rows: auto auto 1fr auto;	/* let description fill out the available space so author aligns to bottom */
+			}
+		}
+	}
+
+	.mods-grid-list {	/* list view */
+		max-width: unset;
+		gap: 1rem 2rem;
+		grid-template-columns: repeat(auto-fit, minmax(50rem, auto));	/* more than one column, but still listy */
+		justify-content: center;
+
+		.\@container\/mod-tile {
+			height: 100%;	/* so borders between rows don't look weird if heights vary across columns */
+
+			.group\/mod-tile {
+				.self-center {align-self: start;}	/* don't vertically center thumbnail because it looks bad if there's more text */
+				& > :nth-child(2) {padding-top: 0; padding-bottom: 0;}
+
+				/* UGH */
+				.\@md\/mod-tile\:pt-2\.5, .\@md\/mod-tile\:py-2\.5 {padding-top: 0.375rem;}
+				.\@md\/mod-tile\:.pb-2\.5, .\@md\/mod-tile\:py-2\.5 {padding-bottom: 0.375rem;}
+
+				.\@md\/mod-tile\:block {
+					& :first-child {padding-top: 0;}
+				}
+
+				/* 3 lines of description, not 2 */
+				.line-clamp-2 {-webkit-line-clamp: 3;}
+			}
+		}
 	}
 	
 	.mods-grid, .profile-mods-grid {
