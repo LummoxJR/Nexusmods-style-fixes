@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.2
+@version        1.2.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -135,17 +135,22 @@
 		}
 	}
 	
-	.mods-grid, .profile-mods-grid {
+	.mods-grid, .mods-grid-compact, .profile-mods-grid {
 		row-gap: 1rem;
 	}
 
 	/* Too much space between mods-grid and pagination */
 	.xs\:mb-10 {margin-bottom: 1.5rem;}
 
-	.mods-grid, .media-grid {
+	.mods-grid, .mods-grid-compact, .mods-grid-list, .media-grid {
 		.bg-surface-translucent-low {
 			background: rgba(0,0,0,0.5);    /* better background for blank space in media thumbnails */
 		}
+	}
+
+	/* too much padding next to filters list */
+	.peer\/filters[data-open="true"] ~ .peer-data-\[open\=true\]\/filters\:xl\:pl-11 {
+		padding-left: 2rem;
 	}
 
 	/* Remove wide gutters, but make allowances for very wide screens */
@@ -280,12 +285,12 @@
 		display: none;
 	}
 
-	section[aria-labelledby="more-mods-header"], section[aria-labelledby="media-header"] {
+	section {
 		/* Move the time button in More Mods next to the other buttons */
-		div.flex.sm\:flex-row {
-			div:first-child {width: auto;}
-			div:first-child::after {display: none;}	/* Meaningless gradient before time selector */
-			button:nth-child(2) {margin-left: unset;}
+		.w-full {width: auto;}
+		.xs\:ml-auto {margin-left: unset;}
+		.w-full.after\:bg-gradient-to-l::after {
+			display: none;	/* Meaningless gradient before time selector */
 		}
 	}
 
