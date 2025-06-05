@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.2.2
+@version        1.2.3
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -145,6 +145,14 @@
 	.mods-grid, .mods-grid-compact, .mods-grid-list, .media-grid, section .grid {
 		.bg-surface-translucent-low {
 			background: rgba(0,0,0,0.5);    /* better background for blank space in media thumbnails */
+		}
+	}
+
+	.mods-grid, .mods-grid-list, .news-grid, section[aria-labelledby="news-header"] {
+		/* The zoom-in scale is pointless when the thumbnail is clipped by its container, so nuke this */
+		.group\/image:hover .group-hover\/image\:scale-105, .group\/news:hover .group-hover\/news\:scale-105 {
+			--tw-scale-x: inherit;
+			--tw-scale-y: inherit;
 		}
 	}
 
