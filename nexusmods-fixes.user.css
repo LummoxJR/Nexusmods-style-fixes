@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.2.3
+@version        1.2.4
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -232,7 +232,7 @@
 	.container ~ #comment-container {padding-top: 0;}
 
 	/* Background image at the top that only covers the top part of the page and looks crappy against the regular background */
-	.absolute.max-h-\[38\.75rem\] {display: none;}
+	.absolute.max-h-\[38\.75rem\], .absolute.max-h-155 {display: none;}
 
 	/* Give back the nice background image */
 	body::before {
