@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.3.0
+@version        1.3.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -68,6 +68,8 @@
 	/* NO! WTF is this for? It appears around sections on the main page for a game and it's awful. STOP ADDDING NEEDLESS PADDING! */
 	.sm\:p-4 {padding: 0;}
 
+    .space-y-6 > [aria-label="Breadcrumb navigation"] {margin: 0;}
+    
     /* Trying to fix the nightmare of vertical space above the mods grid */
     /* FFS guys, add some functional classes */
     #filters-panel + .w-full .gap-y-6 .sticky {
