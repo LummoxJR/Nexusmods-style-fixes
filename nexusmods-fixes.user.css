@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.3.2
+@version        1.3.3
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -202,7 +202,7 @@
 	#description_tab_h2 {display: none;}
 
 	/* Mod image gallery doesn't need the counter unless we hover */
-	#sidebargallery.modimages .counter {transition: opacity 0.33s;}
+	#sidebargallery.modimages .counter {transition: opacity 0.33s; color: white;}
 	#sidebargallery.modimages:not(:hover) .counter {opacity: 0;}
 
 	/* Too much vertical padding around thumbnail gallery */
@@ -210,7 +210,7 @@
 
 	/* File info area has too much vertical padding; SHOULD BE ZERO! */
 	/* Only do this after thumbnail gallery because this is also used for article info that does need padding */
-	.modpage .info-details .sidebargallery + #fileinfo {padding-top: 0; padding-bottom: 0;}
+	.modpage .info-details #sidebargallery + #fileinfo {padding-top: 0; padding-bottom: 0;}
 
 	/* Antivirus status has bogus inline styles that add vertical size */
 	.modpage #fileinfo .sideitem:last-child > div {height: auto !important; top: unset !important;}
