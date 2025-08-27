@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.3.3
+@version        1.4
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -28,8 +28,8 @@
 		I know we're all guilty of this to some degree and I've done MUCH WORSE but please, these
 		classes are bad.
 	 */
-	.pt-2, .pt-3, .py-2, .py-3 {padding-top: 0.25rem;}
-	.pb-2, .pb-3, .py-2, .py-3 {padding-bottom: 0.25rem;}
+	.pt-2, .pt-3, .py-2, .py-3, .sm\:pt-3 {padding-top: 0.25rem;}
+	.pb-2, .pb-3, .py-2, .py-3, .sm\:pb-3 {padding-bottom: 0.25rem;}
 	.pt-4, .pt-6, .py-4, .py-6 {padding-top: 0.5rem;}
 	.pb-4, .pb-6, .py-4, .py-6 {padding-bottom: 0.5rem;}
 	.mt-4, .mt-6, .my-4, .my-6 {margin-top: 0.5rem;}
@@ -59,25 +59,25 @@
 	.space-y-16 > :not(:last-child) {margin-top: 1rem; margin-bottom: 1rem;}
 	.space-y-16 > :last-child {margin-bottom: 1rem;}
 
-    .gap-y-2, .gap-y-4, .gap-y-6 {row-gap: 0.25rem;}
+	.gap-y-2, .gap-y-4, .gap-y-6 {row-gap: 0.25rem;}
 
-    /* This crap was apparently meant to cover Tailwind's sins with more sins */
-    .-mt-2, .-my-2, .-mt-3, .-my-3 {margin-top: 0;}
-    .-mb-2, .-my-2, .-mb-3, .-my-3 {margin-bottom: 0;}
-    
+	/* This crap was apparently meant to cover Tailwind's sins with more sins */
+	.-mt-2, .-my-2, .-mt-3, .-my-3 {margin-top: 0;}
+	.-mb-2, .-my-2, .-mb-3, .-my-3 {margin-bottom: 0;}
+	
 	/* NO! WTF is this for? It appears around sections on the main page for a game and it's awful. STOP ADDDING NEEDLESS PADDING! */
 	.sm\:p-4 {padding: 0;}
 
-    .space-y-6 > [aria-label="Breadcrumb navigation"] {margin: 0;}
-    
-    /* Trying to fix the nightmare of vertical space above the mods grid */
-    /* FFS guys, add some functional classes */
-    #filters-panel + .w-full .gap-y-6 .sticky {
-    	padding-top: 0.25rem;
-    	padding-bottom: 0;
-    	& + .space-y-4 > :not(:last-child) {margin-bottom: 0.2rem;}
-    }
-    
+	.space-y-6 > [aria-label="Breadcrumb navigation"] {margin: 0;}
+	
+	/* Trying to fix the nightmare of vertical space above the mods grid */
+	/* FFS guys, add some functional classes */
+	#filters-panel + .w-full .gap-y-6 .sticky {
+		padding-top: 0.25rem;
+		padding-bottom: 0;
+		& + .space-y-4 > :not(:last-child) {margin-bottom: 0.2rem;}
+	}
+	
 	/* Mod list has a ton of wasted vertical space */
 	.group\/mod-tile {
 		height: 100%;
@@ -91,7 +91,10 @@
 		.pb-2, .py-2 {padding-bottom: 0.2rem;}
 
 		/* Mod title font was too big */
-		.typography-body-xl {font-size: 1rem;}
+		.typography-body-xl {
+			font-size: 1rem;
+			line-height: 1.2;
+		}
 
 		/* Mod title+author section uses too much side padding */
 		.px-3 {padding-left: 0.5rem; padding-right: 0.5rem;}
@@ -110,7 +113,7 @@
 		.line-clamp-2 {-webkit-line-clamp: 3;}
 
 		/* 1.5 line-height wasted space */
-		.typography-body-md {line-height: 1.35;}
+		.typography-body-md, .typography-body-sm {line-height: 1.35;}
 		
 		/* Bottom box with endorsements/downloads/size */
 		.min-h-8 {min-height: 1.5rem;}
@@ -186,8 +189,16 @@
 	#featured h1 {
 		/* Use a nice condensed font */
 		font-family: 'Saira Condensed','Cabin Condensed',sans-serif;
-		margin-bottom: 0.5rem;
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
 	}
+	/* Small shadow/outline on some title text for readability */
+	#featured #pagetitle {
+		#breadcrumb, h1, .stats {
+			text-shadow: 1px 1px 1px rgba(0,0,0,0.7), -1px -1px 1px rgba(0,0,0,0.7);
+		}
+	}
+
 	
 	/* Gradient on mod page covers too much of the header image */
 	#featured #feature .gradient {height: 200px;}
@@ -325,7 +336,7 @@
 		}
 	}
 
-	.media-grid, .games-grid {
+	.media-grid, .games-grid, .collections-grid {
 		row-gap: 1.5rem;	/* 2.5 was too big, but 1 is too small */
 	}
 
