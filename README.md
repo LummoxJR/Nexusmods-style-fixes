@@ -1,12 +1,16 @@
-## Fixing the Nexus Mods update
+## Fixing the Nexus Mods updates
 
 I like some of the things about the new 2025 site update, and other things I don't like. Unfortunately, little to none of the feedback from beta testers was onboarded, so here's a shim to make it right. It's my hope that Nexus will take what's here and apply it to the site.
 
 I've made this and maintain it as a gift to the community, but if you feel like showing appreciation you can visit my [Ko-fi page](https://ko-fi.com/lummoxjr). I'm also on Nexus if you want to check out [my mods for Skyrim](https://next.nexusmods.com/profile/LummoxJR/mods), which includes my book mod Little Library. Speaking of books, I'm an author as well, and you can [find my work on Amazon](https://www.amazon.com/stores/Lee-Gaiteri/author/B0711TP1VT).
 
-## Installation
+## Installation (styles)
 
 To use these styles, you will need the Stylus extension for Firefox or for Chromium browsers. Once installed, [open this link](https://github.com/LummoxJR/Nexusmods-style-fixes/raw/refs/heads/main/nexusmods-fixes.user.css).
+
+## Installation (userscript)
+
+Not all of the problems on Nexus are fixable via CSS alone. You'll need to use GreaseMonkey, TamperMonkey, or ViolentMonkey, and then install [the userscript](https://github.com/LummoxJR/Nexusmods-style-fixes/raw/refs/heads/main/nexusmods-fixes.user.js) with this collection.
 
 ## Overview and goals
 
@@ -30,6 +34,6 @@ I don't know why the site switched to an orange color scheme for everything now.
 
 There are some other areas where game colors used to appear, like the Nexus logo at the top. On many pages this isn't an option anymore because of a lack of CSS classes to identify the game.
 
-## Hiding the Share and Report buttons
+## Moving the Share and Report buttons
 
-I didn't want to hide these buttons on mod pages, but they were dumped in an extraordinarily bad place and there was nothing else to do about them but hide them. If you need to report a mod or need the Share button for some reason, you can disable the styles temporarily. If anyone has other solutions I'm game. Nexus *really* needs to move those buttons into the header.
+I didn't want to hide these buttons on mod pages, but they were dumped in an extraordinarily bad place. If you only use the CSS fixes, those will hide the buttons, and you'll need to disable the CSS fixes temporarily to get them to appear. The userscript however moves them into a new dropdown menu in the header next to the download buttons; they'll only appear there once you navigate to the Description tab of a mod, since that's where the buttons normally live.
