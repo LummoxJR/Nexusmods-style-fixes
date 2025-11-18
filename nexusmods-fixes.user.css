@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.5
+@version        1.5.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -240,18 +240,6 @@
 	 */
 	.tab-description ul.actions, .tab-description .report-abuse-btn, .tab-description .button-share {display: none !important;}
 
-	/*
-		KILL IT WITH FIRE!
-		You asked for feedback and we all told you this shouldn't go above the accordion on the
-		description tab! DUH! Why did you put it here anyway?
-
-		It belongs in its own tab where it's out of the way. Most users don't use collections, but
-		for those who do, it's perfectly usable in a tab.
-
-		And stop wasting vertical real estate FFS!
-	 */
-	collections-containing-mod {display: none;}
-	
 	/* Why is there a margin here? Why? */
 	.tab-description .accordionitems {margin-bottom: 0;}
 
