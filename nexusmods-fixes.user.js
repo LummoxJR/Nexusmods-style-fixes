@@ -7,7 +7,7 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @run-at      document-start
-// @version     1.0.1
+// @version     1.0.2
 // @author      Lummox JR
 // @description Fixes problems with Nexus layout that CSS alone can't fix
 // @downloadURL https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.js
@@ -38,20 +38,27 @@ function debounce(fn, time, now) {
 // polyfill
 (function(){
 	if("onbeforescriptexecute" in document) return; // Already natively supported
+	var foundScript = function(node) {
+		let syntheticEvent = new CustomEvent("beforescriptexecute", {
+			detail: node,
+			cancelable: true
+		})
+		// .dispatchEvent will execute the event synchrously,
+		// and return false if .preventDefault() is called
+		if(!document.dispatchEvent(syntheticEvent)){
+			node.remove();
+		}
+	};
 	let scriptWatcher = new MutationObserver(mutations => {
 		for(let mutation of mutations){
 			for(let node of mutation.addedNodes){
 				if(node.tagName === "SCRIPT"){
-					let syntheticEvent = new CustomEvent("beforescriptexecute", {
-						detail: node,
-						cancelable: true
-					})
-					// .dispatchEvent will execute the event synchrously,
-					// and return false if .preventDefault() is called
-					if(!document.dispatchEvent(syntheticEvent)){
-						node.remove();
-					}
+					foundScript(node);
+					continue;
 				}
+				if(!node.querySelectorAll) continue;
+				let scripts = node.querySelectorAll('script');
+				if(scripts.length) {for(let s of [...scripts]) foundScript(s);}
 			}
 		}
 	})
@@ -107,6 +114,7 @@ function manageAccordions() {
 	// seriously, why TF would it be open by default?
 	for(item of document.querySelectorAll('dl.accordion dd.open'))
 		item.previousElementSibling?.click();
+	console.log('Managed accordions');
 }
 
 const onTabChange = debounce(()=>{
@@ -124,7 +132,7 @@ document.addEventListener('beforescriptexecute',function(evt){
 		// change the script to always treat the cookie as false
 		evt.preventDefault();
 		script = document.createElement('script');
-		script.innerText = content.replace("Cookies.get('collections_accordion_open')", "'false'");
+		script.innerText = content = content.replace("Cookies.get('collections_accordion_open')", "'false'");
 		document.head.appendChild(script);
 		return;
 	}
