@@ -7,7 +7,7 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @run-at      document-start
-// @version     1.0.3
+// @version     1.0.4
 // @author      Lummox JR
 // @description Fixes problems with Nexus layout that CSS alone can't fix
 // @downloadURL https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.js
@@ -99,20 +99,26 @@ function buttonToMenuItem(li,menu,id) {
 
 function manageAccordions() {
 	let item;
+	let accordions = {};
 	// name accordion folds so CSS can deal with them individually
 	for(item of document.querySelectorAll('dl.accordion dt')) {
-		item.setAttribute('data-accordion-name', item.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/i,'-').replace(/^-/,'').replace(/-$/,''));
+		let name = item.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/ig,'-').replace(/^-/,'').replace(/-$/,'');
+		item.setAttribute('data-accordion-name', name);
+		name = name.replace(/-([a-z])/g, (m,m1)=>m1.toUpperCase());
+		accordions[name] = item;
 	}
+	console.log("Accordions", accordions);
 	// close accordion if it was opened by default
 	// seriously, why TF would it be open by default?
 	for(item of document.querySelectorAll('dl.accordion dd.open'))
 		item.previousElementSibling?.click();
 	// move Mods using this mod below Requirements, so it follows the old order
-	let using = document.querySelector('dl.accordion dt[data-accordion-name="mods-using this mod"]'), using_folder = using?.nextElementSibling;
-	let req = document.querySelector('dl.accordion dt[data-accordion-name="requirements"]'), req_folder = req?.nextElementSibling;
-	if(using && req && using != req_folder.nextElementSibling) {
-		req_folder.insertAdjacentElement('afterend',using_folder);
-		req_folder.insertAdjacentElement('afterend',using);
+	let using = accordions.modsUsingThisMod, using_folder = using?.nextElementSibling;
+	let req = accordions.requirements, req_folder = req?.nextElementSibling;
+	if(using && using.previousElementSibling != req_folder) {
+		let block = using.parentNode, next = req_folder ? req_folder.nextElementSibling : block.firstElementChild;
+		block.insertBefore(using,next);
+		block.insertBefore(using_folder,next);
 	}
 }
 
