@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.5.1
+@version        1.5.3
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -248,6 +248,9 @@
 	/* Too big a margin below comment page nav */
 	.comments .comment-nav {margin-bottom: 0.5rem;}
 
+    /* Comment BBCode editor is impossible to see because of incorrect color settings */
+    .comment-reply textarea {color: unset;}
+    
 	/* Article page title area has too much bottom padding, inconsistent with mod page */
 	#featured #feature.blank #pagetitle {padding-bottom: 0.5rem;}
 
@@ -345,6 +348,16 @@
 		.typography-heading-sm {font-size: 1.2rem;}
 	}
 
+	/*
+		Apply theme colors elsewhere on the page
+		This won't work on the main page or mod list for a specific game, because the theme info isn't set anywhere
+	 */
+    body {
+        --colour-primary-strong: var(--theme-secondary);
+        --colour-primary-moderate: var(--theme-primary);
+        --colour-primary-subdued: color-mix(in oklab, var(--theme-primary), var(--theme-dark));
+        --colour-primary-weak: var(--theme-primary-dark);
+    }
 
 	/* Theme colors Nexus wanted to remove for some reason */
 	body.scheme-theme-ReskinBlue {
