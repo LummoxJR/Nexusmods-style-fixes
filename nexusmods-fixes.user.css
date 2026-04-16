@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.5.3
+@version        1.6.0
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -348,10 +348,19 @@
 		.typography-heading-sm {font-size: 1.2rem;}
 	}
 
+    /* Dropdown in requirements section of new editor is weirdly narrow and needs a smaller font */
+    .nxm-dropdown-items {
+        width: var(--input-width, auto);
+        --text-base: 0.8rem;    /* Mod names can be long; give me room to read them */
+    }
+    .nxm-dropdown-items.nxm-dropdown-items-lg .nxm-dropdown-item {
+        padding-block: var(--spacing);  /* spacing * 2.5 is ridiculous */
+    }
+
 	/*
 		Apply theme colors elsewhere on the page
-		This won't work on the main page or mod list for a specific game, because the theme info isn't set anywhere
-	 */
+		This won't work on the main page or mod list for a specific game, because the theme info isn't set
+	 */    
     body {
         --colour-primary-strong: var(--theme-secondary);
         --colour-primary-moderate: var(--theme-primary);
