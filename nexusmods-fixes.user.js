@@ -7,7 +7,7 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @run-at      document-start
-// @version     1.0.4
+// @version     1.0.5
 // @author      Lummox JR
 // @description Fixes problems with Nexus layout that CSS alone can't fix
 // @downloadURL https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.js
@@ -102,7 +102,7 @@ function manageAccordions() {
 	let accordions = {};
 	// name accordion folds so CSS can deal with them individually
 	for(item of document.querySelectorAll('dl.accordion dt')) {
-		let name = item.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/ig,'-').replace(/^-/,'').replace(/-$/,'');
+		let name = item.textContent.trim().toLowerCase().replace(/[^a-z]+/ig,'-').replace(/^-/,'').replace(/-$/,'');
 		item.setAttribute('data-accordion-name', name);
 		name = name.replace(/-([a-z])/g, (m,m1)=>m1.toUpperCase());
 		accordions[name] = item;
