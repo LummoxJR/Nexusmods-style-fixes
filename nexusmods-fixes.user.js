@@ -7,7 +7,7 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @run-at      document-start
-// @version     1.0.5
+// @version     1.1
 // @author      Lummox JR
 // @description Fixes problems with Nexus layout that CSS alone can't fix
 // @downloadURL https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.js
@@ -15,15 +15,37 @@
 
 (function(){
 
+const shadowstyles = {
+	'download-modal':
+`.nxm-button-flamework {
+	background-color: var(--theme-primary);
+	&:is(a,:enabled):not(.nxm-button-disabled)::before {background-color: unset;}
+	&:hover {background-color: var(--theme-secondary);}
+}`
+};
+
+// patch attachShadow()
+const shadows = new WeakMap();
+var oldAttachShadow=HTMLElement.prototype.attachShadow;
+HTMLElement.prototype.attachShadow = function(options) {
+	var e=this;
+	if(!options) options = {};
+	if(options.mode !== 'open') options = Object.Assign({},options,{mode:'open'});
+	var sr = oldAttachShadow.apply(e,arguments);
+	shadows.set(e, sr);
+	return sr;
+}
+// END patch
+
 // polyfill for Violentmonkey
-function GM_getValues(kv) {
+if(!GM_getValues) GM_getValues = (kv)=>{
 	var ret={};
 	for(let k of Object.keys(kv)) ret[k] = GM_getValue(k,kv[k]);
 	return ret;
-}
+};
 
 // TODO: add settings interface
-var settings = GM_getValues({
+const settings = GM_getValues({
 });
 
 function debounce(fn, time, now) {
@@ -60,6 +82,17 @@ function debounce(fn, time, now) {
 		subtree: true
 	})
 })();
+
+// allow styling of buttons handled via shadow DOM
+function styleNxmButtons() {
+	for(let e of document.querySelectorAll(Object.keys(shadowstyles).join(','))) {
+		let sr = e.shadowRoot, sheet;
+		if(!sr || sr.querySelector('style.nxm-style-fixes')) continue;
+		(sheet = document.createElement('style')).className = 'nxm-style-fixes';
+		sheet.textContent = shadowstyles[e.tagName.toLowerCase()];
+		sr.appendChild(sheet);
+	}
+}
 
 // move the report and share buttons to a new menu
 // these only exist in the description tab for some inexplicable reason, so they may need to be moved later
@@ -125,6 +158,7 @@ function manageAccordions() {
 const onTabChange = debounce(()=>{
 	manageAccordions();
 	moveMisplacedButtons();
+	styleNxmButtons();
 }, 250);
 
 // prevent scripts that do unwanted stuff by default
