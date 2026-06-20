@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           nexusmods.com
 @namespace      github.com/openstyles/stylus
-@version        1.6.0
+@version        1.6.1
 @description    Fixes bad style choices from the Nexusmods 2025 update
 @author         Lummox JR
 @updateURL      https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.css
@@ -230,6 +230,11 @@
 	.modpage .sideitems.side-tags {padding-top: 0.5rem; padding-bottom: 0.5rem;}
 	.modpage .sideitems.side-tags h2 {display: none;}
 
+    /* Sorry, I can't restyle the newer download buttons on some mods yet with .nxm-button-flamework; they're in a shadow DOM */
+    /* .modpage .nxm-button-flamework {
+        background-color: var(--theme-primary, inherit);
+    } */
+    
 	/* Keep the same color as other links */
 	.modtabs .alert {color: var(--theme-primary);}
 
@@ -298,6 +303,9 @@
 
 	/* Game overview page */
 
+    /* "New to modding this game" banner is annoying */
+    .relative.overflow-hidden.rounded-lg.border.border-stroke-subdued {display: none;}
+    
 	/* Trending Mods section is huge and needs tweaking */
 	section[aria-labelledby="trending-mods-header"] {
 		/* 2nd div has the content; 1st has the header */
