@@ -7,7 +7,7 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @run-at      document-start
-// @version     1.1
+// @version     1.1.1
 // @author      Lummox JR
 // @description Fixes problems with Nexus layout that CSS alone can't fix
 // @downloadURL https://raw.githubusercontent.com/LummoxJR/Nexusmods-style-fixes/refs/heads/main/nexusmods-fixes.user.js
@@ -17,6 +17,12 @@
 
 const shadowstyles = {
 	'download-modal':
+`.nxm-button-flamework {
+	background-color: var(--theme-primary);
+	&:is(a,:enabled):not(.nxm-button-disabled)::before {background-color: unset;}
+	&:hover {background-color: var(--theme-secondary);}
+}`,
+	'#next-shadow-root':
 `.nxm-button-flamework {
 	background-color: var(--theme-primary);
 	&:is(a,:enabled):not(.nxm-button-disabled)::before {background-color: unset;}
@@ -85,12 +91,22 @@ function debounce(fn, time, now) {
 
 // allow styling of buttons handled via shadow DOM
 function styleNxmButtons() {
-	for(let e of document.querySelectorAll(Object.keys(shadowstyles).join(','))) {
-		let sr = e.shadowRoot, sheet;
-		if(!sr || sr.querySelector('style.nxm-style-fixes')) continue;
-		(sheet = document.createElement('style')).className = 'nxm-style-fixes';
-		sheet.textContent = shadowstyles[e.tagName.toLowerCase()];
-		sr.appendChild(sheet);
+	for(let sel of Object.keys(shadowstyles)) {
+		for(let e of document.querySelectorAll(sel)) {
+			let sr = e.shadowRoot, sheet;
+			if(!sr || sr.querySelector('style.nxm-style-fixes')) continue;
+			console.log('Found item',e);
+			if(!sr.nxmFixObserve) {
+				sr.nxmFixObserve = true;
+				const mo = new MutationObserver((ms, obs) => {
+					for(const m of ms) {if(m.type == 'childList') styleNxmButtons();}
+				});
+				mo.observe(sr, {childList:true});
+			}
+			(sheet = document.createElement('style')).className = 'nxm-style-fixes';
+			sheet.textContent = shadowstyles[sel];
+			sr.appendChild(sheet);
+		}
 	}
 }
 
